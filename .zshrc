@@ -81,10 +81,18 @@ ZSH_THEME="agnoster"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
-source .aliases
 
+source ~/dotfiles/.aliases
+
+. "$HOME/.asdf/asdf.sh"
+
+source "$HOME/.asdf/completions/asdf.bash"
+
+fpath=(${ASDF_DIR}/completions $fpath)
 fpath+=(${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions/src)
+autoload -Uz compinit && compinit
 
+export PATH="$HOME/.local/bin:$PATH"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
