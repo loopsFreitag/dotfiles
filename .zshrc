@@ -81,6 +81,7 @@ ZSH_THEME="agnoster"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
+source .aliases
 
 fpath+=(${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions/src)
 

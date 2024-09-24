@@ -1,0 +1,11 @@
+[user]
+	email = guilherme.lopes.freitas@gmail.com
+	name = guilheme Freitas
+[init]
+	defaultBranch = main
+[core]
+  editor = nvim
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
