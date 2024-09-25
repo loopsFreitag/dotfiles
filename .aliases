@@ -1,3 +1,4 @@
 alias ll='ls -alF'
 alias la='ls -A'
+alias idea="~/idea-IU-241.14494.240/bin/idea.sh > /dev/null 2>&1 &"
 

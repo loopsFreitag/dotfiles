@@ -1,10 +1,11 @@
 [user]
-  email = [email] 
-  name = [name]
+  email = ${GIT_USER_EMAIL}
+  name = ${GIT_USER_NAME}
 [init]
 	defaultBranch = main
 [core]
   editor = nvim
+  longpaths = true
 [column]
 	ui = auto
 [branch]
