@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_DIR=~/dotfiles
+DOTFILES_DIR=~/.dotfiles
 
 echo "Starting the installation of zsh, nvim, and related configurations."
 
@@ -95,7 +95,7 @@ done
 # Create symlinks
 ln -sf $DOTFILES_DIR/.zshrc ~/.zshrc
 ln -sf $DOTFILES_DIR/.p10k.zsh ~/.p10k.zsh
-ln -sf $DOTFILES_DIR/lvim ~/.config/lvim
+ln -s $DOTFILES_DIR/lvim/ ~/.config/lvim
 ln -sf $DOTFILES_DIR/polybar ~/.config/polybar
 ln -sf $DOTFILES_DIR/.gitconfig ~/.gitconfig
 
@@ -124,6 +124,8 @@ else
     echo "Rust $VERSION is already installed via asdf"
 fi
 
+asdf global rust $VERSION
+
 # Dependencies for lvim
 if [ "$PKG_MANAGER" = "pacman" ]; then
     echo "Installing base-devel"
@@ -137,13 +139,9 @@ fi
 if ! command -v nvim > /dev/null; then
     echo "Installing Neovim"
     if [ "$PKG_MANAGER" = "apt" ]; then
-        if [ "$VERSION" = "stable" ]; then
-            sudo apt install -y neovim
-        elif [ "$VERSION" = "nightly" ]; then
-            sudo add-apt-repository -y ppa:neovim-ppa/unstable
-            sudo apt update
-            sudo apt install -y neovim
-        fi
+      sudo add-apt-repository -y ppa:neovim-ppa/unstable
+      sudo apt update
+      sudo apt install -y neovim
     elif [ "$PKG_MANAGER" = "pacman" ]; then
         sudo pacman -S --noconfirm neovim
     fi
