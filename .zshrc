@@ -93,9 +93,14 @@ fpath+=(${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions/src)
 autoload -Uz compinit && compinit
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/apache-maven-3.9.6/bin:$PATH"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+
+unsetopt share_history
+unsetopt inc_append_history
+setopt hist_save_no_dups
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
