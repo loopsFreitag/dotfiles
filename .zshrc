@@ -82,7 +82,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/dotfiles/.aliases
+source ~/.dotfiles/.aliases
 
 . "$HOME/.asdf/asdf.sh"
 
@@ -94,6 +94,7 @@ autoload -Uz compinit && compinit
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/apache-maven-3.9.6/bin:$PATH"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
