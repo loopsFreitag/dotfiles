@@ -1,4 +1,3 @@
-lvim.keys.normal_mode["<S-f>"] = ":Telescope live_grep<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<C-a>"] = "ggVG"
@@ -23,10 +22,28 @@ lvim.plugins = {
     end,
   },
   { "VidocqH/lsp-lens.nvim" },
+  { "akinsho/bufferline.nvim" },
   { "leoluz/nvim-dap-go" },
   { "olexsmir/gopher.nvim" },
   { "yegappan/mru" },
-  { "nvim-treesitter/nvim-treesitter" }
+  { "nvim-treesitter/nvim-treesitter" },
+  { "nvim-java/lua-async-await" },
+  { "nvim-java/nvim-java-refactor" },
+  { "nvim-java/nvim-java-core" },
+  { "nvim-java/nvim-java-test" },
+  { "nvim-java/nvim-java-dap" },
+  { "mfussenegger/nvim-dap" },
+  { "neovim/nvim-lspconfig" },
+  { "MunifTanjim/nui.nvim" },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  { "nvim-java/nvim-java" },
+  { "JavaHello/spring-boot.nvim" },
 }
 
 vim.opt.relativenumber = true
+

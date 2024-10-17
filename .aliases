@@ -2,3 +2,5 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias idea="~/idea-IU-241.14494.240/bin/idea.sh > /dev/null 2>&1 &"
 alias stop-all-containers='docker stop $(docker ps -a -q)'
+alias build='mvn -Pmock -Pskip-all-checks clean package dockerfile:build '-Dgit.commit.id=x' '-Dgit.commit.id.describe=x' '-Dgit.build.time=x''
+alias lzd='lazydocker'

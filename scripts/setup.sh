@@ -126,6 +126,13 @@ fi
 
 asdf global rust $VERSION
 
+# Adding lazydocker
+asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
+
+asdf install lazydocker latest
+
+asdf global lazydocker latest
+
 # Dependencies for lvim
 if [ "$PKG_MANAGER" = "pacman" ]; then
     echo "Installing base-devel"
