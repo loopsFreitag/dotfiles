@@ -95,8 +95,6 @@ done
 # Create symlinks
 ln -sf $DOTFILES_DIR/.zshrc ~/.zshrc
 ln -sf $DOTFILES_DIR/.p10k.zsh ~/.p10k.zsh
-ln -s $DOTFILES_DIR/lvim/ ~/.config/lvim
-ln -sf $DOTFILES_DIR/polybar ~/.config/polybar
 ln -sf $DOTFILES_DIR/.gitconfig ~/.gitconfig
 
 echo "Dotfiles have been symlinked!"
@@ -109,7 +107,11 @@ else
     echo "asdf is already installed"
 fi
 
-# Adding rust
+# Load asdf
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
+# RUST
 if ! asdf plugin-list | grep -q 'rust'; then
     echo "Adding rust plugin to asdf"
     asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
@@ -126,52 +128,73 @@ fi
 
 asdf global rust $VERSION
 
-# Adding lazydocker
-asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
+# LAZYDOCKER
+if ! asdf plugin-list | grep -q 'lazydocker'; then
+    asdf plugin add lazydocker https://github.com/comdotlinux/asdf-lazydocker.git
+fi
 
 asdf install lazydocker latest
-
 asdf global lazydocker latest
 
-# Dependencies for lvim
-if [ "$PKG_MANAGER" = "pacman" ]; then
-    echo "Installing base-devel"
-    sudo pacman -S --noconfirm base-devel
-elif [ "$PKG_MANAGER" = "apt" ]; then
-    echo "Installing build-essential"
-    sudo apt install -y build-essential
-fi
-
-# Installing nvim
-if ! command -v nvim > /dev/null; then
-    echo "Installing Neovim"
-    if [ "$PKG_MANAGER" = "apt" ]; then
-      sudo add-apt-repository -y ppa:neovim-ppa/unstable
-      sudo apt update
-      sudo apt install -y neovim
-    elif [ "$PKG_MANAGER" = "pacman" ]; then
-        sudo pacman -S --noconfirm neovim
-    fi
-else
-    echo "Neovim is already installed"
-fi
-
-# Installing lvim
-if [ ! -d "$HOME/.local/share/lunarvim" ]; then
-    echo "Installing LunarVim"
-    if [ "$VERSION" = "stable" ]; then
-        LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
-    elif [ "$VERSION" = "nightly" ]; then
-        bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-    fi
-else
-    echo "LunarVim is already installed"
-fi
-
-# Installing p10k
+# POWERLEVEL10K
 if [ ! -d "$HOME/powerlevel10k" ]; then
     echo "Installing powerlevel10k"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 else
     echo "powerlevel10k is already installed"
 fi
+
+# NEOVIM
+if ! asdf plugin-list | grep -q 'neovim'; then
+    echo "Adding neovim plugin to asdf"
+    asdf plugin-add neovim https://github.com/richin13/asdf-neovim.git
+else
+    echo "neovim plugin already added"
+fi
+
+echo "Installing latest neovim..."
+asdf install neovim latest
+asdf global neovim latest
+
+# NEOVIM
+if ! asdf plugin-list | grep -q 'neovim'; then
+    echo "Adding neovim plugin to asdf"
+    asdf plugin-add neovim https://github.com/richin13/asdf-neovim.git
+else
+    echo "neovim plugin already added"
+fi
+
+echo "Installing latest neovim..."
+asdf install neovim latest
+asdf global neovim latest
+
+# Neovim config
+NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+
+if [ ! -d "$NVIM_CONFIG_DIR" ]; then
+    echo "Cloning your kickstart.nvim config"
+    git clone git@github.com:loopsFreitag/kickstart.nvim.git "$NVIM_CONFIG_DIR"
+else
+    echo "nvim config already exists at $NVIM_CONFIG_DIR"
+fi
+
+
+# JAVA (OpenJDK 17)
+if ! asdf plugin-list | grep -q 'java'; then
+    echo "Adding java plugin to asdf"
+    asdf plugin-add java https://github.com/halcyon/asdf-java.git
+else
+    echo "java plugin already added"
+fi
+
+# Setup Java 17
+if ! asdf list java | grep -q 'openjdk-17'; then
+    echo "Installing OpenJDK 17"
+    asdf install java openjdk-17
+else
+    echo "OpenJDK 17 is already installed"
+fi
+
+asdf global java openjdk-17
+
+echo "All tools have been installed and configured!"
