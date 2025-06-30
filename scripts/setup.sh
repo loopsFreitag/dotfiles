@@ -144,6 +144,23 @@ else
     echo "powerlevel10k is already installed"
 fi
 
+# Dependencies for nvim
+if [ "$PKG_MANAGER" = "pacman" ]; then
+    echo "Installing base-devel"
+    sudo pacman -S --noconfirm base-devel
+elif [ "$PKG_MANAGER" = "apt" ]; then
+    echo "Installing build-essential"
+    sudo apt install -y build-essentialAdd commentMore actions
+fi
+
+# Install ripgrep
+if ! command -v rg > /dev/null; then
+    echo "Installing ripgrep"
+    install_package ripgrep
+else
+    echo "ripgrep is already installed"
+fi
+
 # NEOVIM
 if ! asdf plugin-list | grep -q 'neovim'; then
     echo "Adding neovim plugin to asdf"
